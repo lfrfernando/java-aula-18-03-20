@@ -5,6 +5,9 @@ public abstract class Animal {
 	private int id;
 	private String nome;
 	
+	
+	
+	
 	public void quantidadeDeAnimaisCadastrados() {
 		
 	}
