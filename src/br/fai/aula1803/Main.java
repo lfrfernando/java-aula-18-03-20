@@ -1,36 +1,26 @@
 package br.fai.aula1803;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-//import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
-
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		Main app = new Main();
 		app.start();
 
 	}
 
 	Scanner ler = new Scanner(System.in);
-	Serializable c = "";
+
 	List<Animal> listaDeAnimais = new ArrayList<Animal>();
 	List<Cavalo> listaDeCavalos = new ArrayList<Cavalo>();
 	List<Girafa> listaDeGirafas = new ArrayList<Girafa>();
-//	Cavalo c1 = new Cavalo("Marchador", 123);
-//	Cavalo c2 = new Cavalo("Manga larga", 456489);
-//	Cavalo c3 = new Cavalo("DUck", 65412);
-//
-//	Girafa g1 = new Girafa("Gorda", 15896);
-//	Girafa g2 = new Girafa("Magra", 6556);
-//	Girafa g3 = new Girafa("Pescoçuda", 56431);
 
 	private void start() {
-		// TODO Auto-generated method stub
+
 		int opcao = 0;
 
 		do {
@@ -40,7 +30,7 @@ public class Main {
 			System.out.println("\n3 - Listar cavalos");
 			System.out.println("\n4 - Listar girafass");
 			System.out.println("\n5 - Listar todos os animais");
-			System.out.println("\n6 - Remover umanimal por id");
+			System.out.println("\n6 - Remover um animal por id");
 			System.out.println("\n7 - Exibir a quantidade de animais cadastrados por tipo");
 			System.out.println("\n8 - Sair");
 			System.out.println("\nEscolha uma opção:");
@@ -54,26 +44,76 @@ public class Main {
 				break;
 
 			case 2:
+				cadastrarGirafa();
 
 				break;
 
 			case 3:
+				for (Animal animal : listaDeCavalos) {
+
+					System.out.println("Dados do cavalo: " + animal);
+
+				}
+
+				// listarCavalos();
 
 				break;
 
 			case 4:
+				for (Animal animal : listaDeGirafas) {
+
+					System.out.println("Dados da girafa: " + animal);
+
+				}
+				// listarGirafas();
 
 				break;
 
 			case 5:
 
+				for (Animal animais : listaDeAnimais) {
+					if (animais instanceof Cavalo) {
+						Cavalo c = (Cavalo) animais;
+						System.out.println("Dados do animal: " + c.getTipo() + animais);
+					} else if (animais instanceof Girafa) {
+						Girafa g = (Girafa) animais;
+						System.out.println("Dados do animal: " + g.getTipo() + animais);
+					}
+
+				}
+
 				break;
 
 			case 6:
+				for (Animal animal : listaDeAnimais) {
+					Animal a = (Animal) animal;
+					System.out.println("Id do animal: ");
+					a.id = ler.nextInt();
+					listaDeAnimais.remove(a);
+
+				}
 
 				break;
 
 			case 7:
+				System.out.println(" ");
+				System.out.println("Numero de cavalos cadastrados: " + listaDeCavalos.size());
+				for (Animal animal : listaDeCavalos) {
+
+					System.out.println("Dados do cavalo: " + animal);
+
+				}
+				System.out.println(" ");
+				System.out.println("Numero de girafas cadastradas: " + listaDeGirafas.size());
+				for (Animal animal : listaDeGirafas) {
+
+					System.out.println("Dados da girafa: " + animal);
+
+				}
+				System.out.println(" ");
+				System.out.println("Total de animais cadastrados: " + listaDeAnimais.size());
+
+				// quantidadeDeAnimaisPorTipo();
 
 				break;
 
@@ -90,46 +130,47 @@ public class Main {
 		} while (opcao == 8);
 
 	}
-	
-	
+
 	public void cadastrarCavalo() {
 		System.out.println("Digite o nome do cavalo:");
-		c = ler.next();
-		System.out.println("Digite o id do cavalo:");
-		c = ler.nextInt();
-		listaDeCavalos.add((Cavalo) c);
-		listaDeAnimais.add((Cavalo) c);
+
+		Cavalo cav = new Cavalo(ler.next(), (listaDeCavalos.size() + 1));
+
+		listaDeCavalos.add(cav);
+		listaDeAnimais.add(cav);
 		System.out.println("O cavalo foi inserido com sucesso!");
+		System.out.println("Os cavalos da lista são: " + listaDeCavalos.size());
+
 	}
 
+	public void cadastrarGirafa() {
+		System.out.println("Digite o nome da girafa:");
 
-//  public void cadastrarCavalo() {
-//
-//		listaDeCavalos.add(c1);
-//		listaDeCavalos.add(c2);
-//		listaDeCavalos.add(c3);
-//
-//		listaDeAnimais.add(c1);
-//		listaDeAnimais.add(c2);
-//		listaDeAnimais.add(c3);
-//
-//		System.out.println("O cavalo foi inserido com sucesso!");
-//		System.out.println(" ");
-//
-//}
+		Girafa gir = new Girafa(ler.next(), (listaDeGirafas.size() + 1));
 
-//	public void cadastrarGirafa() {
-//
-//		listaDeGirafas.add(g1);
-//		listaDeGirafas.add(g2);
-//		listaDeGirafas.add(g3);
-//
-//		listaDeAnimais.add(g1);
-//		listaDeAnimais.add(g2);
-//		listaDeAnimais.add(g3);
-//
-//		System.out.println("A girafa foi inserido com sucesso!");
-//		System.out.println(" ");
+		listaDeGirafas.add(gir);
+		listaDeAnimais.add(gir);
+		System.out.println("A girafa foi inserida com sucesso!");
+	}
+
+//	public void listarCavalos() {
 //
 //	}
+//
+//	public void listarGirafas() {
+//		System.out.println("Os cavalos da lista são: " + listaDeGirafas.size());
+//	}
+//
+//	public void listarTodosAnimais() {
+//
+//	}
+//
+//	public void removerAnimalPorId() {
+//
+//	}
+//
+//	public void quantidadeDeAnimaisPorTipo() {
+//
+//	}
+
 }
