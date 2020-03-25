@@ -1,29 +1,36 @@
 package br.fai.aula1803;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Cavalo extends Animal {
-    
+	Scanner ler = new Scanner(System.in);
+	Serializable c = "";
+	String tipo = "Cavalo";
+
+	public String getTipo() {
+		return this.tipo;
+	}
+
 	public Cavalo(String nome, int id) {
-	  setNome(nome);
-	  setId(id);
+		setNome(nome);
+		setId(id);
 	}
-	
-	public void CadastrarCavalo(ArrayList<Cavalo>cavalo) {
-		
-		System.out.println("O cavlo foi inserido com sucesso!");
+
+	public void cadastrarCavalo() {
+		System.out.println("Digite o nome do cavlo:");
+		c = ler.next();
+		listaDeCavalos.add((Cavalo) c);
+		listaDeAnimais.add((Cavalo) c);
+		System.out.println("O cavalo foi inserido com sucesso!");
 	}
-	
-	public void listarCavalos(ArrayList<Cavalo>cavalo) {
-		
-		while(cavalo.isEmpty()){
-	            System.out.println(cavalo.remove(0));
-	        }
-		
-	}
-	
-	@Override
-    public void quantidadeDeAnimaisCadastrados() {
-	    System.out.println("o numero de cavalos cadastrados é:");	
-	}
+
+	// @Override
+	// public String toString() {
+
+	// return " | " + this.id + " | " + this.nome;
+	// }
+
 }
