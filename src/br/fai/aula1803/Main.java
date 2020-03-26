@@ -15,10 +15,10 @@ public class Main {
 
 	Scanner ler = new Scanner(System.in);
 
-	List<Animal> listaDeAnimais = new ArrayList<Animal>();
+	//List<Animal> listaDeAnimais = new ArrayList<Animal>();
 	List<Cavalo> listaDeCavalos = new ArrayList<Cavalo>();
 	List<Girafa> listaDeGirafas = new ArrayList<Girafa>();
-
+	List<Animal> listaDeAnimais = new ArrayList<Animal>(listaDeCavalos.size() + listaDeGirafas.size());
 	private void start() {
 
 		int opcao = 0;
@@ -39,12 +39,25 @@ public class Main {
 			switch (opcao) {
 
 			case 1:
-				cadastrarCavalo();
+				System.out.println("Nome:");
+				String nomeDoCavalo = ler.next();
+				System.out.println("id: ");
+				int idCavalo = ler.nextInt();
+				cadastrarCavalo(nomeDoCavalo, idCavalo);
+				
+				System.out.println("Cavalo cadastrado!");
+				// cadastrarCavalo();
 
 				break;
 
 			case 2:
-				cadastrarGirafa();
+				System.out.println("Nome:");
+				String nomeDaGirafa = ler.next();
+				System.out.println("id: ");
+				int idGirafa = ler.nextInt();
+				cadastrarGirafa(idGirafa,nomeDaGirafa);
+				System.out.println("Girafa cadastrada!");
+				// cadastrarGirafa();
 
 				break;
 
@@ -85,13 +98,19 @@ public class Main {
 				break;
 
 			case 6:
-				for (Animal animal : listaDeAnimais) {
-					Animal a = (Animal) animal;
-					System.out.println("Id do animal: ");
-					a.id = ler.nextInt();
-					listaDeAnimais.remove(a);
+				System.out.println("Digite o id do animal a ser removido: ");
+				int numero = ler.nextInt();
+				removerAnimalPorId(numero);
+				System.out.println("Animal removido com sucesso da lista!");
 
-				}
+//				
+//				for (Animal animal : listaDeAnimais) {
+//					Animal a = (Animal) animal;
+//					System.out.println("Id do animal: ");
+//					a.id = ler.nextInt();
+//					listaDeAnimais.remove(a);
+//
+//				}
 
 				break;
 
@@ -131,46 +150,57 @@ public class Main {
 
 	}
 
-	public void cadastrarCavalo() {
-		System.out.println("Digite o nome do cavalo:");
+	public void cadastrarCavalo(String nome, int id) {
+		Cavalo cavalo = new Cavalo(nome, id);
 
-		Cavalo cav = new Cavalo(ler.next(), (listaDeCavalos.size() + 1));
-
-		listaDeCavalos.add(cav);
-		listaDeAnimais.add(cav);
-		System.out.println("O cavalo foi inserido com sucesso!");
-		System.out.println("Os cavalos da lista são: " + listaDeCavalos.size());
+		listaDeCavalos.add(cavalo);
 
 	}
 
-	public void cadastrarGirafa() {
-		System.out.println("Digite o nome da girafa:");
+	public void cadastrarGirafa(int idGirafa, String nomeDaGirafa) {
+		Girafa girafa = new Girafa(idGirafa, nomeDaGirafa);
 
-		Girafa gir = new Girafa(ler.next(), (listaDeGirafas.size() + 1));
+		listaDeGirafas.add(girafa);
 
-		listaDeGirafas.add(gir);
-		listaDeAnimais.add(gir);
-		System.out.println("A girafa foi inserida com sucesso!");
 	}
 
-//	public void listarCavalos() {
-//
-//	}
-//
-//	public void listarGirafas() {
-//		System.out.println("Os cavalos da lista são: " + listaDeGirafas.size());
-//	}
-//
-//	public void listarTodosAnimais() {
-//
-//	}
-//
-//	public void removerAnimalPorId() {
-//
-//	}
-//
-//	public void quantidadeDeAnimaisPorTipo() {
-//
-//	}
+	public void listarCavalos() {
+
+		for (Cavalo cavalo : listaDeCavalos) {
+			System.out.println("ID_DO_CAVALO: " + cavalo.getId() + " | " + "NOME_DO_CAVALO: " + cavalo.getNome());
+		}
+
+	}
+
+	public void listarGirafas() {
+		for (Girafa girafa : listaDeGirafas) {
+			System.out.println("ID_DA_GIRAFA: " + girafa.getId() + " | " + "NOME_DA_GIRAFA: " + girafa.getNome());
+		}
+
+	}
+
+	public void listarTodosAnimais() {
+		listaDeAnimais.addAll(listaDeCavalos);
+		listaDeAnimais.addAll(listaDeGirafas);
+
+		for (Animal animal : listaDeAnimais) {
+			System.out.println("ID_DO_ANIMAL: " + animal.getId() + " | " + "NOME_DO_ANIMAL: " + animal.getNome());
+		}
+
+	}
+
+	public void removerAnimalPorId(int numero) {
+		listaDeAnimais.removeIf(id -> id.equals(numero));
+
+	}
+
+	public void quantidadeDeAnimaisPorTipo() {
+		System.out.println("Número de cavalos cadastrados: " + listaDeCavalos.size());
+		listarCavalos();
+		System.out.println("Número de girafas cadastradas: " + listaDeGirafas.size());
+		listarGirafas();
+		System.out.println("Total de animais cadastradas: " + listaDeAnimais.size());
+
+	}
 
 }
