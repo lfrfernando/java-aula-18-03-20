@@ -2,8 +2,18 @@ package br.fai.aula1803;
 
 public abstract class Animal {
 
-	public int id;
-	public String nome;
+	private int id;
+	private String nome;
+
+	private static int ID_UNICO = 0;
+
+	protected void incrementarIdUnico() {
+		ID_UNICO += 1;
+	}
+
+	public static int getIdUnico() {
+		return ID_UNICO;
+	}
 
 	public int getId() {
 		return id;
